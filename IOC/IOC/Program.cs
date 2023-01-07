@@ -39,6 +39,7 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<IRegisterService, RegisterService>();
 builder.Services.AddDbContext<DatabaseContext>();
+builder.Services.AddCors(p => p.AddPolicy("corspolicy", build => { build.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader(); }));
 
 var app = builder.Build();
 
@@ -48,6 +49,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("corspolicy");
 
 app.UseHttpsRedirection();
 

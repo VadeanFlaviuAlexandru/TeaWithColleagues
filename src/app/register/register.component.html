@@ -1,0 +1,30 @@
+<form [formGroup]="SignUpForm" style="display: flex; align-content: center; justify-content: center;">
+    <div class="centeringDiv">
+        <h3>SignUp Here</h3>
+        <div class="input">
+            <Label class="label"> Name: </Label>
+            <input class="input" type="text" style="border-radius: 15px;" formControlName="name" />
+        </div>
+        <div class="input">
+            <label class="label"> surname: </label>
+            <input class="input" type="text" style="border-radius: 15px;" formControlName="surname" />
+        </div>
+        <div class="input">
+            <label class="label"> mailAddress: </label>
+            <input class="input" type="text" style="border-radius: 15px;" formControlName="mailAddress" />
+        </div>
+        <div class="input">
+            <label class="label"> password: </label>
+            <input class="input" type="password" style="border-radius: 15px;" formControlName="password" />
+        </div>
+        <div class="input">
+            <label class="label"> phoneNumber: </label>
+            <input class="input" type="text" style="border-radius: 15px;" formControlName="phoneNumber" />
+        </div>
+        <div class="button">
+            <button class="button-28" type="submit" (click)="SignUpUser()" >Sign-up</button>
+            <h1>Or maybe</h1>
+            <button class="button-28" type="submit" (click)="GoBack()" >Go back</button>
+        </div>
+    </div>
+</form>

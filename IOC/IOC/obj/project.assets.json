@@ -3759,23 +3759,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ami24\\.nuget\\packages\\": {},
+    "C:\\Users\\vadea\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ami24\\OneDrive\\Desktop\\Tea\\TeaWithColleagues\\IOC\\IOC\\IOC.csproj",
+      "projectUniqueName": "D:\\CodingStuff\\GitHub\\TeaWithColleagues\\IOC\\IOC\\IOC.csproj",
       "projectName": "IOC",
-      "projectPath": "C:\\Users\\ami24\\OneDrive\\Desktop\\Tea\\TeaWithColleagues\\IOC\\IOC\\IOC.csproj",
-      "packagesPath": "C:\\Users\\ami24\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ami24\\OneDrive\\Desktop\\Tea\\TeaWithColleagues\\IOC\\IOC\\obj\\",
+      "projectPath": "D:\\CodingStuff\\GitHub\\TeaWithColleagues\\IOC\\IOC\\IOC.csproj",
+      "packagesPath": "C:\\Users\\vadea\\.nuget\\packages\\",
+      "outputPath": "D:\\CodingStuff\\GitHub\\TeaWithColleagues\\IOC\\IOC\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\ami24\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\vadea\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -3784,7 +3784,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -3851,7 +3850,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

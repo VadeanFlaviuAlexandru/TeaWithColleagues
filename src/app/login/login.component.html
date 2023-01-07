@@ -1,0 +1,20 @@
+<form  [formGroup]="LogInForm" style="display: flex; align-content: center; justify-content: center;">
+    <div class="centeringDiv">
+        <h3>Login Here</h3>
+        <div class="input">
+            <Label class="label"> Email: </Label>
+            <input class="input" type="text" style="border-radius: 15px;" formControlName="mailAddress"
+                 />
+        </div>
+        <div class="input">
+            <label class="label"> Password: </label>
+            <input class="input" type="password" style="border-radius: 15px;" formControlName="password"
+                />
+        </div>
+        <div class="button">
+            <button class="button-28" type="submit" (click)="LoginUser()">Log-in</button>
+            <h1>Or maybe</h1>
+            <button class="button-28" type="submit" (click)="SignupUser()" routerLink="/sign-up-page">Sign-up</button>
+        </div>
+    </div>
+</form>
