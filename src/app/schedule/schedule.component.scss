@@ -1,0 +1,20 @@
+dialog {
+    border: none;
+    border-radius: 10px;
+    padding: 30px;
+    background-color: rgb(231, 233, 102);
+    font-family: sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    z-index: 2;
+    width: 20rem;
+    height: 20rem;
+}
+h3 {
+    font-size: 30px;
+    font-weight: 600;
+    background-image: linear-gradient(to left, #ffd90069, #ffd000);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+  }

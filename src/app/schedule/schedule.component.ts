@@ -6,6 +6,10 @@ import listPlugin from '@fullcalendar/list';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { createEventId, INITIAL_EVENTS } from './event-utils';
 import { IdUserService } from '../id-user.service';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { FormControl, FormGroup } from '@angular/forms';
+import { UserE } from '../models/UserE';
 
 @Component({
   selector: 'app-schedule',
@@ -15,11 +19,69 @@ import { IdUserService } from '../id-user.service';
 
 export class ScheduleComponent implements OnInit {
   idUser: number = 0;
+  UserName: string = "default";
+  UserSurname: string = "default";
+  UserPhoneNumber: string = "default";
+  success = false;
+  failure = false;
+
 
   ngOnInit(): void {
     this.idUser = this.IdUserService.getIdUser();
     console.log("On schedule page with id:")
     console.log(this.idUser);
+    this.GetUserInfo();
+  }
+
+
+  reset() {
+    this.success = false;
+    this.failure = false;
+  }
+
+  EditForm = new FormGroup({
+    name: new FormControl(),
+    surname: new FormControl(),
+    phoneNumber: new FormControl()
+  })
+
+  FinishEdit() {
+    let UserE: UserE = {
+      idUser: this.idUser,
+      name: this.EditForm.get('name')?.value,
+      surname: this.EditForm.get('surname')?.value,
+      phoneNumber: this.EditForm.get('phoneNumber')?.value,
+    }
+    this.EditUser(UserE).subscribe((response) => {
+      if (response.statusText == "OK") {
+        this.success=true
+      } else {
+        this.failure = false;
+      }
+    });
+  }
+  
+  EditUser(UserE: any) {
+    return this.http.put(`${environment.BaseUrl}/User/edit-user`, UserE, {
+      observe: 'response',
+      responseType: 'text',
+    });
+  }
+
+  GetUserInfo() {
+    this.SendUserID().subscribe(response => {
+      const responseBody = JSON.parse(response.body!);
+      this.UserName = responseBody.name;
+      this.UserSurname = responseBody.surname;
+      this.UserPhoneNumber = responseBody.phoneNumber;
+    });
+  }
+
+  SendUserID() {
+    return this.http.get(`${environment.BaseUrl}/User/get-user-by-id?id=${this.idUser}`, {
+      observe: 'response',
+      responseType: 'text',
+    });
   }
 
   calendarVisible = true;
@@ -53,7 +115,7 @@ export class ScheduleComponent implements OnInit {
   };
   currentEvents: EventApi[] = [];
 
-  constructor(private changeDetector: ChangeDetectorRef,private IdUserService: IdUserService) {
+  constructor(private changeDetector: ChangeDetectorRef, private IdUserService: IdUserService, private http: HttpClient) {
   }
 
   handleCalendarToggle() {

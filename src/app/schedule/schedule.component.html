@@ -1,4 +1,87 @@
 <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
-    <p>username and other to do</p>
-    <full-calendar [options]="calendarOptions" style="width: 50vw; "></full-calendar>
+    <div style="display: flex;flex-direction: row;justify-content: flex-end;">
+        <h3>{{UserName}}'s schedule page!</h3>
+        <button (click)="myDialog.show()" style="background:none;border:none">
+            <img src="../../assets/Settings_Lineal-coloured.svg" style="max-width: 3rem;" />
+        </button>
+    </div>
+    <!-- information/settings -->
+    <dialog #myDialog style="position: absolute; text-align: center;">
+        <p>{{UserName}} {{UserSurname}}'s information</p>
+        <p> phone number: {{UserPhoneNumber}}</p>
+        <!-- more information to do -->
+        <div style="display:flex;justify-content: center;align-items: center;gap:1rem">
+            <button
+                style="background-color: #1a252f; color: white;border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;user-select: none;"
+                (click)="myDialog.close()">Go back</button>
+            <button
+                style="background-color: #1a252f; color: white;border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;user-select: none;"
+                (click)="myDialog4.show()">Edit</button>
+        </div>
+    </dialog>
+    <!-- edit user -->
+    <dialog #myDialog4>
+        <form [formGroup]="EditForm" style="display: flex; align-content: center; justify-content: center;">
+            <div class="centeringDiv">
+                <h3>Login Here</h3>
+                <div class="input">
+                    <Label class="label"> name: </Label>
+                    <input class="input" type="text" style="border-radius: 15px;" formControlName="name" />
+                </div>
+                <div class="input">
+                    <label class="label"> surname: </label>
+                    <input class="input" type="text" style="border-radius: 15px;" formControlName="surname" />
+                </div>
+                <div class="input">
+                    <label class="label"> phone number: </label>
+                    <input class="input" type="text" style="border-radius: 15px;" formControlName="phoneNumber" />
+                </div>
+                <div class="button"
+                    style="display: flex;gap:2rem;margin-top: 1rem; align-content: center; justify-content: center;">
+                    <button
+                        style="background-color: #1a252f; color: white;border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;user-select: none;"
+                        (click)="myDialog4.close();reset()">Go back</button>
+                    <button
+                        style="background-color: #1a252f; color: white;border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;user-select: none;"
+                        (click)="FinishEdit();">Finish
+                        Editing</button>
+                </div>
+                <p style="color:green" *ngIf="success">Success!</p>
+                <p style="color:red" *ngIf="failure">Try again!</p>
+            </div>
+        </form>
+    </dialog>
+    <!-- schedule tea time -->
+    <dialog #myDialog1 style=" position: absolute; text-align: center;">
+        <p>schedule tea time to do </p>
+        <button
+            style="background-color: #1a252f; color: white;border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;user-select: none;"
+            (click)="myDialog1.close()">oh ok :(</button>
+    </dialog>
+    <!-- add availability -->
+    <dialog #myDialog2 style="position: absolute; text-align: center;">
+        <p>add availability to do</p>
+        <button
+            style="background-color: #1a252f; color: white;border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;user-select: none;"
+            (click)="myDialog2.close()">oh ok :(</button>
+    </dialog>
+    <!-- random tea time -->
+    <dialog #myDialog3 style="position: absolute; text-align: center;">
+        <p>random tea time to do</p>
+        <button
+            style="background-color: #1a252f; color: white;border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;user-select: none;"
+            (click)="myDialog3.close()">oh ok :(</button>
+    </dialog>
+    <full-calendar [options]="calendarOptions" style="width: 48.5vw; "></full-calendar>
+    <div style="display: flex;flex-direction: row;gap:2rem;margin-top: 1rem;width: 48.5vw; ;justify-content: flex-end;">
+        <button
+            style="background-color: #1a252f;color: white; border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;user-select: none;"
+            (click)="myDialog1.show()">schedule TeaTime</button>
+        <button
+            style="background-color: #1a252f; color: white;border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;user-select: none;"
+            (click)="myDialog2.show()">add availability</button>
+        <button
+            style="background-color: #1a252f; color: white;border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;user-select: none;"
+            (click)="myDialog3.show()">Random Tea Time</button>
+    </div>
 </div>
