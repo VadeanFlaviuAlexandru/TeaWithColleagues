@@ -1,51 +1,50 @@
-<form class="submit-form" [formGroup]="SignUpForm">
-
-    <h2 class="title">SignUp Here</h2>
-
-    <label class="label"> Name: </label>
-
-    <input class="input" type="text" style="border-radius: 15px;" formControlName="name" />
-
-
-
-    <label class="label mt-3"> Surname: </label>
-
-    <input class="input" type="text" style="border-radius: 15px;" formControlName="surname" />
-
-
-
-    <label class="label"> Email: </label>
-
-    <input class="input" type="text" style="border-radius: 15px;" formControlName="mailAddress" />
-
-
-
-    <label class="label"> Password: </label>
-
-    <input class="input" type="password" style="border-radius: 15px;" formControlName="password" />
-
-
-
-    <label class="label"> Phone Number: </label>
-
-    <input class="input" type="text" style="border-radius: 15px;" formControlName="phoneNumber" />
-
-
-
-    <button class="button-signup" type="submit" (click)="SignUpUser()" >Sign-up</button>
-
-
-
-    <div class="goback">
-
-    <h2 class="title">Or maybe</h2>
-
-    <button class="button-goback" type="submit" (click)="GoBack()" >Go back</button>
-
-</div>
-
-</form>
-
-<div class="underlay-photo"></div>
-
-<div class="underlay-black"></div>
+<div class="background">
+    <form class="signup_form" [formGroup]="SignUpForm">
+      <div class="header">
+        <button class="button-goback" type="submit" (click)="GoBack()">
+          <svg
+            fill="#ffffff"
+            width="40"
+            height="40"
+            viewBox="0 0 512 512"
+            id="Layer_1"
+            version="1.1"
+            xml:space="preserve"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <path
+              d="M50.2,169.6C97.9,56.3,228.5,3.1,341.8,50.9s166.4,178.3,118.7,291.6S282.2,508.9,168.9,461.1  C86.4,426.4,32.7,345.5,32.7,256C32.7,226.3,38.6,196.9,50.2,169.6z M254.7,448c106,0,192-86,192-192s-86-192-192-192  s-192,86-192,192S148.7,448,254.7,448z M226.7,140.7L111.4,256l115.3,115.3l21.2-21.2L168.7,271h208.2v-30H168.7l79.1-79.1  L226.7,140.7z"
+            />
+          </svg>
+        </button>
+        <h2 class="title">SignUp Here</h2>
+      </div>
+      <label class="label">
+        Name:
+        <input class="input" type="text" formControlName="name" />
+      </label>
+      <label class="label mt-3">
+        Surname:
+        <input class="input" type="text" formControlName="surname" />
+      </label>
+  
+      <label class="label">
+        Email:
+        <input class="input" type="text" formControlName="mailAddress" />
+      </label>
+  
+      <label class="label">
+        Password:
+        <input class="input" type="password" formControlName="password" />
+      </label>
+      <label class="label">
+        Phone Number:
+        <input class="input" type="text" formControlName="phoneNumber" />
+      </label>
+      <button class="signup_btn" type="submit" (click)="SignUpUser()">
+        Sign-up
+      </button>
+    </form>
+  </div>
+  

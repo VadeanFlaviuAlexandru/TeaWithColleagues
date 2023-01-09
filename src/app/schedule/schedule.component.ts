@@ -32,7 +32,8 @@ export class ScheduleComponent implements OnInit {
   currentEventClicked: string = "default";
   deleteEvent = false;
   createEvent = false;
-
+  // locatie
+  // addeventuseravailiabiliy
   ngOnInit(): void {
     this.idUser = this.IdUserService.getIdUser();
     console.log("On schedule page with id:")
@@ -53,7 +54,37 @@ export class ScheduleComponent implements OnInit {
   })
   CreateEventForm = new FormGroup({
     title: new FormControl(),
+    // locatie
+    // userforavailability
   })
+  // GETuserforavailability(UserL: any) {
+  //   return this.http.post(`${environment.BaseUrl}/Login/login`, UserL, {
+  //     observe: 'response',
+  //     responseType: 'text',
+  //   });
+  // }
+
+
+  // userforavailability() {
+  //   dati string
+  //   this.GETuserforavailability(UserL).subscribe((response) => {
+  //     if (response.statusText == "OK" && response.body) {
+  //       const responseBody = JSON.parse(response.body);
+  //       this.IdUserService.setIdUser(responseBody.idUser);
+  //       console.log("Log-in-ing in with id:")
+  //       console.log(this.IdUserService.getIdUser())
+  //       this.router.navigate(['schedule']);
+  //     }
+  //   });
+  // }
+
+
+
+  // crete avaibalitiy()
+  // return this.http.post(`${environment.BaseUrl}/Login/login`, UserL, {
+    //     observe: 'response',
+    //     responseType: 'text',
+    //   });
 
   FinishEdit() {
     let UserE: UserE = {
@@ -144,11 +175,19 @@ export class ScheduleComponent implements OnInit {
     dialog.show();
     const closeListener = () => {
       this.title = this.CreateEventForm.get("title")?.value;
+      // userforavailability()
+      // locatie fin input
+      // name din unput userforavailability
+
       this.SavingTitle(selectInfo);
       dialog.removeEventListener('close', closeListener);
+        // crete avaibalitiy() in DB
+
     }
     dialog.addEventListener('close', closeListener);
     this.CreateEventForm.get("title")?.reset();
+      //     this.currentEventClicked = clickInfo.event.title;
+
   }
 
   SavingTitle(selectInfo: DateSelectArg) {

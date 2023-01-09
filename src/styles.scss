@@ -1,1 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-image: url("https://www.deccanherald.com/sites/dh/files/article_images/2020/04/10/iStock-1080387570-1586457216.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #fff;
+}
+
+div.fc-header-toolbar.fc-toolbar.fc-toolbar-ltr {
+  align-items: center;
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+}
+
+h2#fc-dom-1.fc-toolbar-title {
+  font-size: 1.5rem;
+}
+
+@media (min-width: 1100px) {
+  div.fc-header-toolbar.fc-toolbar.fc-toolbar-ltr {
+    display: flex;
+    gap: 0.5rem;
+  }
+}
