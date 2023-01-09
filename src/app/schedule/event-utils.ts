@@ -4,7 +4,7 @@ let eventGuid = 0;
 const TODAY_STR = new Date().toISOString().replace(/T.*$/, ''); // YYYY-MM-DD of today
 
 export const INITIAL_EVENTS: EventInput[] = [
-
+  //pre saved events on startup
 ];
 
 export function createEventId() {

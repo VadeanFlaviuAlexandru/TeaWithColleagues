@@ -1,15 +1,15 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { CalendarOptions, DateSelectArg, EventApi, EventClickArg } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import listPlugin from '@fullcalendar/list';
 import timeGridPlugin from '@fullcalendar/timegrid';
-import { createEventId, INITIAL_EVENTS } from './event-utils';
-import { IdUserService } from '../id-user.service';
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
-import { FormControl, FormGroup } from '@angular/forms';
+import { IdUserService } from '../id-user.service';
 import { UserE } from '../models/UserE';
+import { createEventId, INITIAL_EVENTS } from './event-utils';
 
 @Component({
   selector: 'app-schedule',
@@ -18,13 +18,20 @@ import { UserE } from '../models/UserE';
 })
 
 export class ScheduleComponent implements OnInit {
+  @ViewChild('myDialog5') myDialog5?: ElementRef;
+  @ViewChild('myDialog6') myDialog6?: ElementRef;
   idUser: number = 0;
   UserName: string = "default";
   UserSurname: string = "default";
   UserPhoneNumber: string = "default";
   success = false;
   failure = false;
-
+  CreateEvent = false;
+  DoneCreateEvent = false;
+  title: string = "default";
+  currentEventClicked: string = "default";
+  deleteEvent = false;
+  createEvent = false;
 
   ngOnInit(): void {
     this.idUser = this.IdUserService.getIdUser();
@@ -44,6 +51,9 @@ export class ScheduleComponent implements OnInit {
     surname: new FormControl(),
     phoneNumber: new FormControl()
   })
+  CreateEventForm = new FormGroup({
+    title: new FormControl(),
+  })
 
   FinishEdit() {
     let UserE: UserE = {
@@ -54,13 +64,13 @@ export class ScheduleComponent implements OnInit {
     }
     this.EditUser(UserE).subscribe((response) => {
       if (response.statusText == "OK") {
-        this.success=true
+        this.success = true
       } else {
         this.failure = false;
       }
     });
   }
-  
+
   EditUser(UserE: any) {
     return this.http.put(`${environment.BaseUrl}/User/edit-user`, UserE, {
       observe: 'response',
@@ -104,6 +114,7 @@ export class ScheduleComponent implements OnInit {
     selectable: true,
     selectMirror: true,
     dayMaxEvents: true,
+    locale: 'ro',
     select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this)
@@ -116,6 +127,7 @@ export class ScheduleComponent implements OnInit {
   currentEvents: EventApi[] = [];
 
   constructor(private changeDetector: ChangeDetectorRef, private IdUserService: IdUserService, private http: HttpClient) {
+    this.myDialog5 = new ElementRef(null);
   }
 
   handleCalendarToggle() {
@@ -128,15 +140,25 @@ export class ScheduleComponent implements OnInit {
   }
 
   handleDateSelect(selectInfo: DateSelectArg) {
-    const title = prompt('Please enter a new title for your event');
+    const dialog = (this.myDialog5 as ElementRef).nativeElement;
+    dialog.show();
+    const closeListener = () => {
+      this.title = this.CreateEventForm.get("title")?.value;
+      this.SavingTitle(selectInfo);
+      dialog.removeEventListener('close', closeListener);
+    }
+    dialog.addEventListener('close', closeListener);
+    this.CreateEventForm.get("title")?.reset();
+  }
+
+  SavingTitle(selectInfo: DateSelectArg) {
+    const titleGot = this.title
     const calendarApi = selectInfo.view.calendar;
-
     calendarApi.unselect(); // clear date selection
-
-    if (title) {
+    if (titleGot) {
       calendarApi.addEvent({
         id: createEventId(),
-        title,
+        title: titleGot,
         start: selectInfo.startStr,
         end: selectInfo.endStr,
         allDay: selectInfo.allDay
@@ -144,10 +166,18 @@ export class ScheduleComponent implements OnInit {
     }
   }
 
-  handleEventClick(clickInfo: EventClickArg) {
-    if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-      clickInfo.event.remove();
+  async handleEventClick(clickInfo: EventClickArg) {
+    const dialog = (this.myDialog6 as ElementRef).nativeElement;
+    this.currentEventClicked = clickInfo.event.title;
+    dialog.show();
+
+    while (!this.deleteEvent) {
+      await new Promise(resolve => setTimeout(resolve, 500));
     }
+
+    clickInfo.event.remove();
+    this.deleteEvent = false;
+    console.log(this.deleteEvent)
   }
 
   handleEvents(events: EventApi[]) {

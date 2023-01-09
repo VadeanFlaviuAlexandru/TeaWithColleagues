@@ -12,10 +12,10 @@
         <!-- more information to do -->
         <div style="display:flex;justify-content: center;align-items: center;gap:1rem">
             <button
-                style="background-color: #1a252f; color: white;border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;user-select: none;"
+                style="background-color: #1a252f; color: white;border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;cursor: pointer;"
                 (click)="myDialog.close()">Go back</button>
             <button
-                style="background-color: #1a252f; color: white;border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;user-select: none;"
+                style="background-color: #1a252f; color: white;border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;cursor: pointer;"
                 (click)="myDialog4.show()">Edit</button>
         </div>
     </dialog>
@@ -23,7 +23,7 @@
     <dialog #myDialog4>
         <form [formGroup]="EditForm" style="display: flex; align-content: center; justify-content: center;">
             <div class="centeringDiv">
-                <h3>Login Here</h3>
+                <h4>Edit information</h4>
                 <div class="input">
                     <Label class="label"> name: </Label>
                     <input class="input" type="text" style="border-radius: 15px;" formControlName="name" />
@@ -39,10 +39,10 @@
                 <div class="button"
                     style="display: flex;gap:2rem;margin-top: 1rem; align-content: center; justify-content: center;">
                     <button
-                        style="background-color: #1a252f; color: white;border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;user-select: none;"
+                        style="background-color: #1a252f; color: white;border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;cursor: pointer;"
                         (click)="myDialog4.close();reset()">Go back</button>
                     <button
-                        style="background-color: #1a252f; color: white;border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;user-select: none;"
+                        style="background-color: #1a252f; color: white;border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;cursor: pointer;"
                         (click)="FinishEdit();">Finish
                         Editing</button>
                 </div>
@@ -53,35 +53,66 @@
     </dialog>
     <!-- schedule tea time -->
     <dialog #myDialog1 style=" position: absolute; text-align: center;">
-        <p>schedule tea time to do </p>
+        <p> Please select a date on the table to note a meeting! </p>
         <button
-            style="background-color: #1a252f; color: white;border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;user-select: none;"
-            (click)="myDialog1.close()">oh ok :(</button>
+            style="background-color: #1a252f; color: white;border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;cursor: pointer;"
+            (click)="myDialog1.close()">oh ok :)</button>
     </dialog>
     <!-- add availability -->
     <dialog #myDialog2 style="position: absolute; text-align: center;">
         <p>add availability to do</p>
         <button
-            style="background-color: #1a252f; color: white;border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;user-select: none;"
+            style="background-color: #1a252f; color: white;border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;cursor: pointer;"
             (click)="myDialog2.close()">oh ok :(</button>
     </dialog>
     <!-- random tea time -->
     <dialog #myDialog3 style="position: absolute; text-align: center;">
         <p>random tea time to do</p>
         <button
-            style="background-color: #1a252f; color: white;border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;user-select: none;"
+            style="background-color: #1a252f; color: white;border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;cursor: pointer;"
             (click)="myDialog3.close()">oh ok :(</button>
     </dialog>
+    <!-- add event -->
+    <dialog #myDialog5>
+        <form [formGroup]="CreateEventForm" style="display: flex; align-content: center; justify-content: center;">
+            <div class="centeringDiv">
+                <h4>Create event!</h4>
+                <div class="input" style="margin-bottom: 1rem;">
+                    <Label class="label"> title: </Label>
+                    <input class="input" type="text" style="border-radius: 15px;" formControlName="title" />
+                </div>
+                <button
+                    style="margin-right: 1rem;background-color: #1a252f; color: white;border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;cursor: pointer;"
+                    (click)="myDialog5.close()">Go back</button>
+                <button #buttonConfirmDialog5
+                    style="background-color: #1a252f; color: white;border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;cursor: pointer;"
+                    (click)="myDialog5.close();">Add event</button>
+            </div>
+        </form>
+    </dialog>
+    <!-- delete event -->
+    <dialog #myDialog6 >
+        <h4>{{currentEventClicked}}</h4>
+        <h5>would you like to delete?</h5>
+        <button
+            style="background-color: #1a252f; color: white;border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;cursor: pointer;"
+            (click)="deleteEvent=true;myDialog6.close()">delete event</button>
+        <button #buttonConfirmDialog6
+            style="background-color: #1a252f; color: white;border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;cursor: pointer;"
+            (click)="myDialog6.close()">Go back</button>
+    </dialog>
+    <!-- calendar -->
     <full-calendar [options]="calendarOptions" style="width: 48.5vw; "></full-calendar>
+    <!-- 3 buttons -->
     <div style="display: flex;flex-direction: row;gap:2rem;margin-top: 1rem;width: 48.5vw; ;justify-content: flex-end;">
         <button
-            style="background-color: #1a252f;color: white; border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;user-select: none;"
+            style="background-color: #1a252f;color: white; border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;cursor: pointer;"
             (click)="myDialog1.show()">schedule TeaTime</button>
         <button
-            style="background-color: #1a252f; color: white;border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;user-select: none;"
+            style="background-color: #1a252f; color: white;border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;cursor: pointer;"
             (click)="myDialog2.show()">add availability</button>
         <button
-            style="background-color: #1a252f; color: white;border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;user-select: none;"
+            style="background-color: #1a252f; color: white;border: 1px solid black;border-radius: .25rem;font-size: 1em;font-weight: 400;line-height: 1.5;padding: .4em .65em;text-align: center;cursor: pointer;"
             (click)="myDialog3.show()">Random Tea Time</button>
     </div>
 </div>

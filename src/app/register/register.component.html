@@ -1,30 +1,51 @@
-<form [formGroup]="SignUpForm" style="display: flex; align-content: center; justify-content: center;">
-    <div class="centeringDiv">
-        <h3>SignUp Here</h3>
-        <div class="input">
-            <Label class="label"> Name: </Label>
-            <input class="input" type="text" style="border-radius: 15px;" formControlName="name" />
-        </div>
-        <div class="input">
-            <label class="label"> surname: </label>
-            <input class="input" type="text" style="border-radius: 15px;" formControlName="surname" />
-        </div>
-        <div class="input">
-            <label class="label"> mailAddress: </label>
-            <input class="input" type="text" style="border-radius: 15px;" formControlName="mailAddress" />
-        </div>
-        <div class="input">
-            <label class="label"> password: </label>
-            <input class="input" type="password" style="border-radius: 15px;" formControlName="password" />
-        </div>
-        <div class="input">
-            <label class="label"> phoneNumber: </label>
-            <input class="input" type="text" style="border-radius: 15px;" formControlName="phoneNumber" />
-        </div>
-        <div class="button">
-            <button class="button-28" type="submit" (click)="SignUpUser()" >Sign-up</button>
-            <h1>Or maybe</h1>
-            <button class="button-28" type="submit" (click)="GoBack()" >Go back</button>
-        </div>
-    </div>
+<form class="submit-form" [formGroup]="SignUpForm">
+
+    <h2 class="title">SignUp Here</h2>
+
+    <label class="label"> Name: </label>
+
+    <input class="input" type="text" style="border-radius: 15px;" formControlName="name" />
+
+
+
+    <label class="label mt-3"> Surname: </label>
+
+    <input class="input" type="text" style="border-radius: 15px;" formControlName="surname" />
+
+
+
+    <label class="label"> Email: </label>
+
+    <input class="input" type="text" style="border-radius: 15px;" formControlName="mailAddress" />
+
+
+
+    <label class="label"> Password: </label>
+
+    <input class="input" type="password" style="border-radius: 15px;" formControlName="password" />
+
+
+
+    <label class="label"> Phone Number: </label>
+
+    <input class="input" type="text" style="border-radius: 15px;" formControlName="phoneNumber" />
+
+
+
+    <button class="button-signup" type="submit" (click)="SignUpUser()" >Sign-up</button>
+
+
+
+    <div class="goback">
+
+    <h2 class="title">Or maybe</h2>
+
+    <button class="button-goback" type="submit" (click)="GoBack()" >Go back</button>
+
+</div>
+
 </form>
+
+<div class="underlay-photo"></div>
+
+<div class="underlay-black"></div>
