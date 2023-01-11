@@ -15,7 +15,7 @@ namespace IOC.Models
         public string MailAddress { get; set; }
         public string Password { get; set; }
 
-        public virtual ICollection<Availability> Availabilities { get; } = new List<Availability>();
+        public virtual ICollection<Availability> Availabilities { get;} = new List<Availability>();
         public virtual ICollection<UserRefreshToken> UserRefreshTokens { get; set; }
         
     }

@@ -69,6 +69,15 @@ namespace IOC.DataBase
                     .HasConstraintName("FK_UserRefreshToken_User_IDUser");
             });
 
+            modelBuilder.Entity<Availability>(entity =>
+             {
+                 entity.HasOne(a => a.User)
+                        .WithMany(u=>u.Availabilities)
+                        .HasForeignKey(a => a.IdUser)
+                        .HasConstraintName("FK_Availabilities_User_IdUser");
+
+             });
+
             OnModelCreatingPartial(modelBuilder);
         }
 

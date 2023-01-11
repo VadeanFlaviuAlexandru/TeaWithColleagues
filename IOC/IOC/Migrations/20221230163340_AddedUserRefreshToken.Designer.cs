@@ -103,7 +103,7 @@ namespace IOC.Migrations
                 {
                     b.HasOne("IOC.Models.User", null)
                         .WithMany("Availabilities")
-                        .HasForeignKey("UserIDUser");
+                        .HasForeignKey("IDUser");
                 });
 
             modelBuilder.Entity("IOC.Models.User", b =>

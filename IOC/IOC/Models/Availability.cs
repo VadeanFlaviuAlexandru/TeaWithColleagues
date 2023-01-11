@@ -19,5 +19,9 @@ namespace IOC.Models
         public AvailabilityType Type { get; set; }
 
         public DateTime StartDate { get; set; }
+
+        //[ForeignKey("IDUser")]
+        public virtual User User { get; set; } = null!;
+
     }
 }

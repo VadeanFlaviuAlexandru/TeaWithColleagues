@@ -1,4 +1,5 @@
-﻿using IOC.CreateModels;
+﻿using IOC.Constants;
+using IOC.CreateModels;
 using IOC.Models;
 using IOC.RequestModels;
 using IOC.Services.Interfaces;
@@ -35,11 +36,41 @@ namespace IOC.Controllers
             return availibility is not null ? availibility : NotFound(); 
         }
 
-
+        [HttpGet("get-all-availabilities-by-user")]
+        public async Task<ActionResult<List<Availability>>> GetAllAvailabilitiesByUser(int idUser)
+        {
+            return await _availabilityService.GetAllAvailabilitiesByUser(idUser);
+        }
         [HttpGet("get-availabilities-by-date-and-time")]
         public async Task<List<Availability>> GetAvailabilitiesByDateAndTime(DateTime dateTime)
         {
             return await _availabilityService.GetAvailabilitiesByDateAndTime(dateTime);
+        }
+
+        [HttpGet("get-availabilities-by-type")]
+        public async Task<List<Availability>> GetAvailabilitiesByType(int type)
+        {
+            return await _availabilityService.GetAvailabilitiesByType(type);
+        }
+        [HttpPut("edit-availability")]
+        public async Task<bool> EditAvailability([FromBody] AvailabilityEditRequest availabilityDto)
+        {
+            Availability a = new Availability();
+            a.IdAvailability= availabilityDto.IdAvailability;
+            a.IdParticipant = availabilityDto.IdParticipant;
+            a.Location = availabilityDto.Location;
+            a.StartDate = availabilityDto.StartDate;
+            a.IdUser = availabilityDto.IdUser;
+
+
+
+            if (@a == null)
+                return false;
+            else
+            {
+                var result = await _availabilityService.EditAvailability(a);
+                return true;
+            }
         }
 
         [HttpPost("users/{userId}/availability")]
@@ -48,14 +79,29 @@ namespace IOC.Controllers
             CreateAvailability createAvaiability = new()
             {
                 IdUser = userId,
-                IdParticipant = createAvailabilityRequest.IdParticipant,
-                Location=createAvailabilityRequest.Location,
                 StartDate=createAvailabilityRequest.StartDate
             };
             return new ObjectResult(await _availabilityService.AddAvailability(createAvaiability)) { StatusCode = StatusCodes.Status201Created };
         }
 
-        [HttpDelete("delete-availability")]
+        [HttpPost("users/{userId}/TeaTime")]
+        public async Task<IActionResult> AddTeaTime([FromBody][Required] CreateTeaTimeRequest createTeaTimeRequest, [FromRoute][Required] int userId)
+        {
+            // CreateAvailability createAvaiability = new()
+            // {
+            //     IdUser = userId,
+            //     StartDate = createTeaTimeRequest.StartDate
+            // };
+            CreateTeaTime createteatime = new(){
+                                IdUser = userId,
+                StartDate = createTeaTimeRequest.StartDate,
+                Location = createTeaTimeRequest.Location,
+                IdParticipant=createTeaTimeRequest.IdParticipant,
+            };
+            return new ObjectResult(await _availabilityService.AddTeaTime(createteatime)) { StatusCode = StatusCodes.Status201Created };
+        }
+
+        [HttpDelete("availability/{id}")]
         public async Task<IActionResult> DeleteAvailability(int id)
         {
             bool result = await _availabilityService.DeleteAvailability(id);

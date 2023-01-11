@@ -1,129 +1,183 @@
 <div class="background">
-    <div class="main_box">
-        <div class="heading_box">
-            <h3 class="main_title">{{ UserName }}'s schedule page!</h3>
-            <button class="schedule_btn" (click)="myDialog.show()">
-                <svg fill="#fff" width="40px" height="40px" viewBox="0 0 30.586 30.586"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <g transform="translate(-546.269 -195.397)">
-                        <path
-                            d="M572.138,221.245a15.738,15.738,0,0,0-21.065-.253l-1.322-1.5a17.738,17.738,0,0,1,23.741.28Z" />
+  <div class="main_box">
+    <div class="heading_box">
+      <h3 class="main_title">{{ UserName }}'s schedule page!</h3>
+      <button class="schedule_btn" (click)="myDialog.show()">
+        <svg
+          fill="#fff"
+          width="40px"
+          height="40px"
+          viewBox="0 0 30.586 30.586"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g transform="translate(-546.269 -195.397)">
+            <path
+              d="M572.138,221.245a15.738,15.738,0,0,0-21.065-.253l-1.322-1.5a17.738,17.738,0,0,1,23.741.28Z"
+            />
 
-                        <path
-                            d="M561.464,204.152a4.96,4.96,0,1,1-4.96,4.96,4.966,4.966,0,0,1,4.96-4.96m0-2a6.96,6.96,0,1,0,6.96,6.96,6.96,6.96,0,0,0-6.96-6.96Z" />
+            <path
+              d="M561.464,204.152a4.96,4.96,0,1,1-4.96,4.96,4.966,4.966,0,0,1,4.96-4.96m0-2a6.96,6.96,0,1,0,6.96,6.96,6.96,6.96,0,0,0-6.96-6.96Z"
+            />
 
-                        <path
-                            d="M561.562,197.4a13.293,13.293,0,1,1-13.293,13.293A13.308,13.308,0,0,1,561.562,197.4m0-2a15.293,15.293,0,1,0,15.293,15.293A15.293,15.293,0,0,0,561.562,195.4Z" />
-                    </g>
-                </svg>
-            </button>
-        </div>
-        <!-- information/settings -->
-        <dialog #myDialog>
-            <button class="schedule_btn" (click)="myDialog.close()">
-                <svg fill="#ffffff" width="40" height="40" viewBox="0 0 512 512" id="Layer_1" version="1.1"
-                    xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <path
-                        d="M50.2,169.6C97.9,56.3,228.5,3.1,341.8,50.9s166.4,178.3,118.7,291.6S282.2,508.9,168.9,461.1  C86.4,426.4,32.7,345.5,32.7,256C32.7,226.3,38.6,196.9,50.2,169.6z M254.7,448c106,0,192-86,192-192s-86-192-192-192  s-192,86-192,192S148.7,448,254.7,448z M226.7,140.7L111.4,256l115.3,115.3l21.2-21.2L168.7,271h208.2v-30H168.7l79.1-79.1  L226.7,140.7z" />
-                </svg>
-            </button>
-            <p>{{ UserName }} {{ UserSurname }}'s information</p>
-            <p>phone number: {{ UserPhoneNumber }}</p>
-            <!-- more information to do -->
-            <button class="edit_btn" (click)="myDialog4.show()">Edit</button>
-        </dialog>
-        <!-- edit user -->
-        <dialog #myDialog4>
-            <form [formGroup]="EditForm" class="form_edit">
-                <div class="certer_box">
-                    <h4>Edit information</h4>
-                    <label class="label_edit">
-                        name:
-                        <input class="input" type="text" formControlName="name" />
-                    </label>
-                    <label class="label_edit">
-                        surname:
-                        <input class="input" type="text" formControlName="surname" />
-                    </label>
-                    <label class="label_edit">
-                        phone number:
-                        <input class="input" type="text" formControlName="phoneNumber" />
-                    </label>
-                    <div class="button" style="
-                display: flex;
-                gap: 2rem;
-                margin-top: 1rem;
-                align-content: center;
-                justify-content: center;
-              ">
-                        <button class="schedule_btn" (click)="myDialog4.close()">
-                            <svg fill="#ffffff" width="40" height="40" viewBox="0 0 512 512" id="Layer_1" version="1.1"
-                                xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
-                                xmlns:xlink="http://www.w3.org/1999/xlink">
-                                <path
-                                    d="M50.2,169.6C97.9,56.3,228.5,3.1,341.8,50.9s166.4,178.3,118.7,291.6S282.2,508.9,168.9,461.1  C86.4,426.4,32.7,345.5,32.7,256C32.7,226.3,38.6,196.9,50.2,169.6z M254.7,448c106,0,192-86,192-192s-86-192-192-192  s-192,86-192,192S148.7,448,254.7,448z M226.7,140.7L111.4,256l115.3,115.3l21.2-21.2L168.7,271h208.2v-30H168.7l79.1-79.1  L226.7,140.7z" />
-                            </svg>
-                        </button>
-                        <button class="edit_btn" (click)="FinishEdit()">
-                            Finish Editing
-                        </button>
-                    </div>
-                    <p style="color: green" *ngIf="success">Success!</p>
-                    <p style="color: red" *ngIf="failure">Try again!</p>
-                </div>
-            </form>
-        </dialog>
-        <!-- schedule tea time -->
-        <dialog #myDialog1>
-            <p>Please select a date on the table to note a meeting!</p>
-            <button class="edit_btn" (click)="myDialog1.close()">oh ok :)</button>
-        </dialog>
-        <!-- add availability -->
-        <dialog #myDialog2>
-            <p>Add availability to do</p>
-            <button class="edit_btn" (click)="myDialog2.close()">oh ok :(</button>
-        </dialog>
-        <!-- random tea time -->
-        <dialog #myDialog3>
-            <p>Random tea time to do</p>
-            <button class="edit_btn" (click)="myDialog3.close()">oh ok :(</button>
-        </dialog>
-        <!-- add event -->
-        <dialog #myDialog5>
-            <form [formGroup]="CreateEventForm" style="display: flex; align-content: center; justify-content: center">
-                <div class="centeringDiv">
-                    <h4>Create event!</h4>
-                    <div class="input" style="margin-bottom: 1rem">
-                        <label class="label_edit">
-                            title:
-                            <input class="input" type="text" formControlName="title" />
-                        </label>
-                    </div>
-                    <button class="edit_btn" (click)="myDialog5.close()">Go back</button>
-                    <button class="edit_btn" #buttonConfirmDialog5 (click)="myDialog5.close()">
-                        Add event
-                    </button>
-                </div>
-            </form>
-        </dialog>
-        <!-- delete event -->
-        <dialog #myDialog6>
-            <h4>{{ currentEventClicked }}</h4>
-            <h5>would you like to delete?</h5>
-            <button class="edit_btn" (click)="deleteEvent = true; myDialog6.close()">
-                Delete event
-            </button>
-            <button #buttonConfirmDialog6 class="edit_btn" (click)="myDialog6.close()">
-                Go back
-            </button>
-        </dialog>
-        <!-- calendar -->
-        <full-calendar [options]="calendarOptions" style="width: 48.5vw"></full-calendar>
-        <!-- 3 buttons -->
-        <div class="buttons_extra">
-            <button (click)="myDialog1.show()">Schedule TeaTime</button>
-            <button (click)="myDialog2.show()">Add availability</button>
-            <button (click)="myDialog3.show()">Random Tea Time</button>
-        </div>
+            <path
+              d="M561.562,197.4a13.293,13.293,0,1,1-13.293,13.293A13.308,13.308,0,0,1,561.562,197.4m0-2a15.293,15.293,0,1,0,15.293,15.293A15.293,15.293,0,0,0,561.562,195.4Z"
+            />
+          </g>
+        </svg>
+      </button>
     </div>
+    <!-- information/settings -->
+    <dialog #myDialog>
+      <button class="schedule_btn" (click)="myDialog.close()">
+        <svg
+          fill="#ffffff"
+          width="40"
+          height="40"
+          viewBox="0 0 512 512"
+          id="Layer_1"
+          version="1.1"
+          xml:space="preserve"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <path
+            d="M50.2,169.6C97.9,56.3,228.5,3.1,341.8,50.9s166.4,178.3,118.7,291.6S282.2,508.9,168.9,461.1  C86.4,426.4,32.7,345.5,32.7,256C32.7,226.3,38.6,196.9,50.2,169.6z M254.7,448c106,0,192-86,192-192s-86-192-192-192  s-192,86-192,192S148.7,448,254.7,448z M226.7,140.7L111.4,256l115.3,115.3l21.2-21.2L168.7,271h208.2v-30H168.7l79.1-79.1  L226.7,140.7z"
+          />
+        </svg>
+      </button>
+      <p>{{ UserName }} {{ UserSurname }}'s information</p>
+      <p>phone number: {{ UserPhoneNumber }}</p>
+      <!-- more information to do -->
+      <button class="edit_btn" (click)="myDialog4.show()">Edit</button>
+    </dialog>
+    <!-- edit user -->
+    <dialog #myDialog4>
+      <form [formGroup]="EditForm" class="form_edit">
+        <div class="certer_box">
+          <h4>Edit information</h4>
+          <label class="label_edit">
+            name:
+            <input class="input" type="text" formControlName="name" />
+          </label>
+          <label class="label_edit">
+            surname:
+            <input class="input" type="text" formControlName="surname" />
+          </label>
+          <label class="label_edit">
+            phone number:
+            <input class="input" type="text" formControlName="phoneNumber" />
+          </label>
+          <div
+            class="button"
+            style="
+              display: flex;
+              gap: 2rem;
+              margin-top: 1rem;
+              align-content: center;
+              justify-content: center;
+            "
+          >
+            <button class="schedule_btn" (click)="myDialog4.close()">
+              <svg
+                fill="#ffffff"
+                width="40"
+                height="40"
+                viewBox="0 0 512 512"
+                id="Layer_1"
+                version="1.1"
+                xml:space="preserve"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+              >
+                <path
+                  d="M50.2,169.6C97.9,56.3,228.5,3.1,341.8,50.9s166.4,178.3,118.7,291.6S282.2,508.9,168.9,461.1  C86.4,426.4,32.7,345.5,32.7,256C32.7,226.3,38.6,196.9,50.2,169.6z M254.7,448c106,0,192-86,192-192s-86-192-192-192  s-192,86-192,192S148.7,448,254.7,448z M226.7,140.7L111.4,256l115.3,115.3l21.2-21.2L168.7,271h208.2v-30H168.7l79.1-79.1  L226.7,140.7z"
+                />
+              </svg>
+            </button>
+            <button class="edit_btn" (click)="FinishEdit()">
+              Finish Editing
+            </button>
+          </div>
+          <p style="color: green" *ngIf="success">Success!</p>
+          <p style="color: red" *ngIf="failure">Try again!</p>
+        </div>
+      </form>
+    </dialog>
+    <!-- schedule tea time -->
+    <dialog #myDialog1>
+      <p>Please select a date on the table to note a meeting!</p>
+      <button class="edit_btn" (click)="myDialog1.close()">oh ok :)</button>
+    </dialog>
+    <!-- add availability -->
+    <dialog #myDialog2>
+      <h4>You are about to enter a date for when you're free for a cup of tea</h4>
+      <label class="label_edit">
+        date:
+        <input class="input" type="text" formControlName="date" />
+      </label>
+      <button class="edit_btn" (click)="myDialog2.close()">oh ok :(</button>
+    </dialog>
+    <!-- random tea time -->
+    <dialog #myDialog3>
+      <p>Random tea time to do</p>
+      <button class="edit_btn" (click)="myDialog3.close()">oh ok :(</button>
+    </dialog>
+    <!-- add event -->
+    <dialog #myDialog5>
+      <form
+        [formGroup]="CreateEventForm"
+        style="display: flex; align-content: center; justify-content: center"
+      >
+        <div class="centeringDiv">
+          <h4>Create event!</h4>
+          <div class="input" style="margin-bottom: 1rem">
+            <label class="label_edit">
+              title:
+              <input class="input" type="text" formControlName="title" />
+            </label>
+            <label class="label_edit">
+              location:
+              <input class="input" type="text" formControlName="location" />
+            </label>
+          </div>
+          <button class="edit_btn" (click)="myDialog5.close()">Go back</button>
+          <button
+            class="edit_btn"
+            #buttonConfirmDialog5
+            (click)="myDialog5.close()"
+          >
+            Add event
+          </button>
+        </div>
+      </form>
+    </dialog>
+    <!-- delete event -->
+    <dialog #myDialog6>
+      <h4>Tea title: {{ currentEventClicked }}</h4>
+      <h4>Location: {{ currentEventClickedLOCATION }}</h4>
+      <h4>Date: {{ currentEventClickedDATE }}</h4>
+      <h5>would you like to delete?</h5>
+      <button class="edit_btn" (click)="deleteEvent = true; myDialog6.close()">
+        Delete event
+      </button>
+      <button
+        #buttonConfirmDialog6
+        class="edit_btn"
+        (click)="myDialog6.close()"
+      >
+        Go back
+      </button>
+    </dialog>
+    <!-- calendar -->
+    <full-calendar
+      [options]="calendarOptions"
+      style="width: 48.5vw"
+    ></full-calendar>
+    <!-- 3 buttons -->
+    <div class="buttons_extra">
+      <button (click)="myDialog1.show()"> ❓ Schedule TeaTime ❓</button>
+      <button (click)="myDialog2.show()"> ☕ Add availability ☕ </button>
+      <button (click)="myDialog3.show()">Random Tea Time</button>
+    </div>
+  </div>
 </div>

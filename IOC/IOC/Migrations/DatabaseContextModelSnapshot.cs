@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
+#nullable disable
+
 namespace IOC.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
@@ -45,7 +47,7 @@ namespace IOC.Migrations
 
                     b.HasKey("IdAvailability");
 
-                    b.HasIndex("UserIDUser");
+                    b.HasIndex("IdUser");
 
                     b.ToTable("Availabilities");
                 });
@@ -100,16 +102,61 @@ namespace IOC.Migrations
                     b.ToTable("User", (string)null);
                 });
 
+            modelBuilder.Entity("IOC.Models.UserRefreshToken", b =>
+                {
+                    b.Property<int>("IDUserRefreshToken")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IDUserRefreshToken"));
+
+                    b.Property<int>("IDUser")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RefreshToken")
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<DateTime?>("RefreshTokenExpiryTime")
+                        .HasColumnType("datetime");
+
+                    b.HasKey("IDUserRefreshToken")
+                        .HasName("PK_UserRefreshToken");
+
+                    b.HasIndex("IDUser");
+
+                    b.ToTable("UserRefreshToken", (string)null);
+                });
+
             modelBuilder.Entity("IOC.Models.Availability", b =>
                 {
-                    b.HasOne("IOC.Models.User", null)
+                    b.HasOne("IOC.Models.User", "User")
                         .WithMany("Availabilities")
-                        .HasForeignKey("UserIDUser");
+                        .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_Availabilities_User_IdUser");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("IOC.Models.UserRefreshToken", b =>
+                {
+                    b.HasOne("IOC.Models.User", "User")
+                        .WithMany("UserRefreshTokens")
+                        .HasForeignKey("IDUser")
+                        .IsRequired()
+                        .HasConstraintName("FK_UserRefreshToken_User_IDUser");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("IOC.Models.User", b =>
                 {
                     b.Navigation("Availabilities");
+
+                    b.Navigation("UserRefreshTokens");
                 });
 #pragma warning restore 612, 618
         }
