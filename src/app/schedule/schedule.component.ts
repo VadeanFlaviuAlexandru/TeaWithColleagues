@@ -21,8 +21,8 @@ import { environment } from 'src/environments/environment';
 import { IdUserService } from '../id-user.service';
 import { UserE } from '../models/UserE';
 import { createEventId, INITIAL_EVENTS } from './event-utils';
-import { format } from 'date-fns'
-
+import { POSTavailability } from '../models/POSTavailability';
+import { GETavailabilities } from '../models/GETavailabilities';
 @Component({
   selector: 'app-schedule',
   templateUrl: './schedule.component.html',
@@ -47,10 +47,9 @@ export class ScheduleComponent implements OnInit {
   currentEventClickedLOCATION: string = 'default';
   currentEventClickedDATE: string = 'default'!;
   currentEventClickedDATEsub: string = 'default';
-
   deleteEvent = false;
   createEvent = false;
-
+  Participant = false;
   ngOnInit(): void {
     this.idUser = this.IdUserService.getIdUser();
     console.log('On schedule page with id:');
@@ -58,6 +57,12 @@ export class ScheduleComponent implements OnInit {
     this.GetUserInfo();
   }
 
+  GETallAvailabilities() {
+    return this.http.get<GETavailabilities[]>(
+      `${environment.BaseUrl}/Availability/get-all-availabilities`,
+      {}
+    );
+  }
   reset() {
     this.success = false;
     this.failure = false;
@@ -71,8 +76,13 @@ export class ScheduleComponent implements OnInit {
   CreateEventForm = new FormGroup({
     title: new FormControl(),
     location: new FormControl(),
+    hourStart: new FormControl(),
+    hourEnd: new FormControl(),
   });
-
+  SendAvailability = new FormGroup({
+    date: new FormControl(),
+    time: new FormControl(),
+  });
   FinishEdit() {
     let UserE: UserE = {
       idUser: this.idUser,
@@ -160,12 +170,32 @@ export class ScheduleComponent implements OnInit {
     const closeListener = () => {
       this.title = this.CreateEventForm.get('title')?.value;
       this.location = this.CreateEventForm.get('location')?.value;
+      const startHour = this.CreateEventForm.get('hourStart')?.value;
+      const endHour = this.CreateEventForm.get('hourEnd')?.value;
+      // this.GETallAvailabilities().subscribe((response) => {
+      //   const filteredArray = response.filter((item) => {
+      //     const date = new Date(item.startDate);
+      //     const hour = date.getUTCHours();
+      //     return hour >= startHour && hour <= endHour;
+      //   });
+      //   console.log(filteredArray);
+      //   const names = filteredArray.map((item) => item.idUser);
+      //   const select = document.getElementById('dropdown');
+      //   select.innerHTML = '';
+      //   names.forEach((name) => {
+      //     const option = document.createElement('option');
+      //     option.value = name;
+      //     option.text = name;
+      //     select.appendChild(option);
+      //   });
+      // });
 
       this.SavingTitle(selectInfo);
       dialog.removeEventListener('close', closeListener);
     };
     dialog.addEventListener('close', closeListener);
     this.CreateEventForm.get('title')?.reset();
+    this.Participant = false;
   }
 
   SavingTitle(selectInfo: DateSelectArg) {
@@ -188,12 +218,16 @@ export class ScheduleComponent implements OnInit {
   async handleEventClick(clickInfo: EventClickArg) {
     const dialog = (this.myDialog6 as ElementRef).nativeElement;
     this.currentEventClicked = clickInfo.event.title;
-    this.currentEventClickedLOCATION = clickInfo.event.extendedProps['location']
-    this.currentEventClickedDATEsub = clickInfo.event.start?.toString()!
-    this.currentEventClickedDATE= this.currentEventClickedDATEsub.substring(0,15)// Wed Jan 18 2023
-    const dateC=new Date(this.currentEventClickedDATE)
-    const formatDate = new Date(dateC.toUTCString()).toISOString()
-    console.log(formatDate)
+    this.currentEventClickedLOCATION =
+      clickInfo.event.extendedProps['location'];
+    this.currentEventClickedDATEsub = clickInfo.event.start?.toString()!;
+    this.currentEventClickedDATE = this.currentEventClickedDATEsub.substring(
+      0,
+      15
+    );
+    const dateC = new Date(this.currentEventClickedDATE);
+    const formatDate = new Date(dateC.toUTCString()).toISOString();
+    console.log(formatDate);
     dialog.show();
 
     while (!this.deleteEvent) {
@@ -205,18 +239,30 @@ export class ScheduleComponent implements OnInit {
     console.log(this.deleteEvent);
   }
 
-  AddAvailability(){
-    const dialog = (this.myDialog6 as ElementRef).nativeElement;
+  AddAvailability() {
+    const dialog = (this.myDialog2 as ElementRef).nativeElement;
     dialog.show();
+    const date = this.SendAvailability.get('date')?.value;
+    const time = this.SendAvailability.get('time')?.value;
+    const datetime = new Date(date + 'T' + time);
+    let POSTavailability: POSTavailability = {
+      startDate: datetime.toISOString(),
+    };
+    this.POSTAvailability(POSTavailability);
+    dialog.close();
   }
 
   POSTAvailability(availability: any) {
-    return this.http.post(`${environment.BaseUrl}/Availability/users/${this.idUser}/availability`, availability, {
-      observe: 'response',
-      responseType: 'text',
-    });
+    return this.http.post(
+      `${environment.BaseUrl}/Availability/users/${this.idUser}/availability`,
+      availability,
+      {
+        observe: 'response',
+        responseType: 'text',
+      }
+    );
   }
-  
+
   handleEvents(events: EventApi[]) {
     this.currentEvents = events;
     this.changeDetector.detectChanges();

@@ -106,20 +106,63 @@
     <!-- schedule tea time -->
     <dialog #myDialog1>
       <p>Please select a date on the table to note a meeting!</p>
-      <button class="edit_btn" (click)="myDialog1.close()">oh ok :)</button>
+      <button class="edit_btn" (click)="myDialog1.close()">Ok!</button>
     </dialog>
     <!-- add availability -->
     <dialog #myDialog2>
-      <h4>You are about to enter a date for when you're free for a cup of tea</h4>
-      <label class="label_edit">
-        date:
-        <input class="input" type="text" formControlName="date" />
-      </label>
-      <button class="edit_btn" (click)="myDialog2.close()">oh ok :(</button>
+      <form
+        [formGroup]="SendAvailability"
+        style="
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+        "
+      >
+        <h4>
+          You are about to enter a date for when you're free for a cup of tea
+        </h4>
+        <label class="label_edit">
+          <input
+            style="margin-top: 1rem"
+            class="input"
+            type="date"
+            formControlName="date"
+          />
+          <input
+            style="margin-top: 1rem"
+            class="input"
+            type="time"
+            formControlName="time"
+          />
+        </label>
+        <button class="edit_btn" (click)="AddAvailability()">Ready!</button>
+        <button
+          class="schedule_btn"
+          (click)="myDialog2.close()"
+          style="margin-top: 10rem"
+        >
+          <svg
+            fill="#ffffff"
+            width="40"
+            height="40"
+            viewBox="0 0 512 512"
+            id="Layer_1"
+            version="1.1"
+            xml:space="preserve"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <path
+              d="M50.2,169.6C97.9,56.3,228.5,3.1,341.8,50.9s166.4,178.3,118.7,291.6S282.2,508.9,168.9,461.1  C86.4,426.4,32.7,345.5,32.7,256C32.7,226.3,38.6,196.9,50.2,169.6z M254.7,448c106,0,192-86,192-192s-86-192-192-192  s-192,86-192,192S148.7,448,254.7,448z M226.7,140.7L111.4,256l115.3,115.3l21.2-21.2L168.7,271h208.2v-30H168.7l79.1-79.1  L226.7,140.7z"
+            />
+          </svg>
+        </button>
+      </form>
     </dialog>
     <!-- random tea time -->
     <dialog #myDialog3>
-      <p>Random tea time to do</p>
+      <p>feature still in development</p>
       <button class="edit_btn" (click)="myDialog3.close()">oh ok :(</button>
     </dialog>
     <!-- add event -->
@@ -139,6 +182,22 @@
               location:
               <input class="input" type="text" formControlName="location" />
             </label>
+            <!-- <label class="label_edit">
+              hour start:
+              <input class="input" type="time" formControlName="hourStart" />
+            </label>
+            <label class="label_edit">
+              hour end:
+              <input class="input" type="time" formControlName="hourEnd" />
+            </label>
+            <button class="edit_btn" (click)="Participant=true">
+              Show participants
+            </button>
+            <select id="dropdown" class="edit_btn" *ngIf="Participant">
+              <option value="user1">User1</option>
+              <option value="user2">User2</option>
+              <option value="user3">User3</option>
+            </select> -->
           </div>
           <button class="edit_btn" (click)="myDialog5.close()">Go back</button>
           <button
@@ -175,8 +234,8 @@
     ></full-calendar>
     <!-- 3 buttons -->
     <div class="buttons_extra">
-      <button (click)="myDialog1.show()"> ❓ Schedule TeaTime ❓</button>
-      <button (click)="myDialog2.show()"> ☕ Add availability ☕ </button>
+      <button (click)="myDialog1.show()">❓ Schedule TeaTime ❓</button>
+      <button (click)="myDialog2.show()">☕ Add availability ☕</button>
       <button (click)="myDialog3.show()">Random Tea Time</button>
     </div>
   </div>
