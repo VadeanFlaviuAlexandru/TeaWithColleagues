@@ -47,8 +47,35 @@
       </button>
       <p>{{ UserName }} {{ UserSurname }}'s information</p>
       <p>phone number: {{ UserPhoneNumber }}</p>
-      <!-- more information to do -->
       <button class="edit_btn" (click)="myDialog4.show()">Edit</button>
+      <button class="edit_btn" (click)="myDialogAVA.show(); myDialog.show()">
+        Check Availabilities
+      </button>
+    </dialog>
+    <!-- check Availabilities -->
+    <dialog #myDialogAVA>
+      <button class="schedule_btn" (click)="myDialogAVA.close()">
+        <svg
+          fill="#ffffff"
+          width="40"
+          height="40"
+          viewBox="0 0 512 512"
+          id="Layer_1"
+          version="1.1"
+          xml:space="preserve"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <path
+            d="M50.2,169.6C97.9,56.3,228.5,3.1,341.8,50.9s166.4,178.3,118.7,291.6S282.2,508.9,168.9,461.1  C86.4,426.4,32.7,345.5,32.7,256C32.7,226.3,38.6,196.9,50.2,169.6z M254.7,448c106,0,192-86,192-192s-86-192-192-192  s-192,86-192,192S148.7,448,254.7,448z M226.7,140.7L111.4,256l115.3,115.3l21.2-21.2L168.7,271h208.2v-30H168.7l79.1-79.1  L226.7,140.7z"
+          />
+        </svg>
+      </button>
+      <div *ngFor="let item of FilteredListAvailabilities">
+        <div>Location: {{ item.location }}</div>
+        <div>Start Date: {{ item.startDate }}</div>
+        <div>--------------------------------</div>
+      </div>
     </dialog>
     <!-- edit user -->
     <dialog #myDialog4>
@@ -182,7 +209,7 @@
               location:
               <input class="input" type="text" formControlName="location" />
             </label>
-            <!-- <label class="label_edit">
+            <label class="label_edit">
               hour start:
               <input class="input" type="time" formControlName="hourStart" />
             </label>
@@ -190,25 +217,53 @@
               hour end:
               <input class="input" type="time" formControlName="hourEnd" />
             </label>
-            <button class="edit_btn" (click)="Participant=true">
+            <button
+              class="edit_btn"
+              (click)="Participant = true; myDialog5.close(); DIApartici.show()"
+            >
               Show participants
             </button>
-            <select id="dropdown" class="edit_btn" *ngIf="Participant">
-              <option value="user1">User1</option>
-              <option value="user2">User2</option>
-              <option value="user3">User3</option>
-            </select> -->
           </div>
-          <button class="edit_btn" (click)="myDialog5.close()">Go back</button>
           <button
             class="edit_btn"
-            #buttonConfirmDialog5
-            (click)="myDialog5.close()"
+            (click)="myDialog5.close(); Participant = false"
           >
-            Add event
+            Go back
           </button>
         </div>
       </form>
+    </dialog>
+    <dialog #DIApartici>
+      <select
+        [(ngModel)]="selectedid"
+        id="dropdown"
+        class="edit_btn"
+        *ngIf="Participant"
+        [(ngModel)]="selectedOption"
+      >
+        <option
+          style="color: rgb(0, 204, 255)"
+          *ngFor="let name of names"
+          (click)="ParticipantDONE = true"
+          [value]="name"
+        >
+          {{ name }}
+        </option>
+      </select>
+      <button
+        class="edit_btn"
+        (click)="DIApartici.close(); myDialog5.close(); Participant = false"
+      >
+        Go back
+      </button>
+      <button
+        *ngIf="ParticipantDONE"
+        class="edit_btn"
+        #buttonConfirmDialog5
+        (click)="DIApartici.close(); myDialog5.close(); savingTeaTime()"
+      >
+        Add event
+      </button>
     </dialog>
     <!-- delete event -->
     <dialog #myDialog6>

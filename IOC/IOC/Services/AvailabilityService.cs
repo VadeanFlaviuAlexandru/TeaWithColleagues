@@ -8,6 +8,7 @@ using IOC.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 
 namespace IOC.Services
 {
@@ -20,24 +21,120 @@ namespace IOC.Services
             _context = dataBaseContext;
         }
 
-        public async Task<List<Availability>> GetAllAvailabilities()
+        public async Task<List<APIAvailability>> GetAllAvailabilities()
         {
-            return await _context.Availabilities.ToListAsync();
+             List < APIAvailability >  availabilities = await _context.Availabilities.Select(a => new APIAvailability
+            {
+
+                StartDate = a.StartDate,
+                IdAvailability = a.IdAvailability,
+                IdUser = a.IdUser,
+                IdParticipant = a.IdParticipant,
+                Location = a.Location,
+                Type = a.Type,
+                //APIUser = null //await _context.Users.FindAsync(a.IdUser)
+
+            }).ToListAsync();
+
+            foreach(APIAvailability a in availabilities )
+            {
+                User user = await _context.Users.FindAsync(a.IdUser);
+                a.APIUser = new()
+                {
+                    IDUser = user.IDUser,
+                    Name = user.Name,
+                    Surname = user.Surname,
+                    PhoneNumber = user.PhoneNumber,
+                    MailAddress = user.MailAddress
+                };
+            }
+            return availabilities;
         }
 
-        public async Task<Availability> GetAvailabilityById(int id)
+        public async Task<APIAvailability> GetAvailabilityById(int id)
         {
-            return await _context.Availabilities.FindAsync(id);
+           Availability Availability = _context.Availabilities.Where(a => a.IdAvailability == id).FirstOrDefault();
+
+            User user = await _context.Users.FindAsync(Availability.IdUser);
+
+            APIAvailability apiAvailability =  new()
+            {
+                StartDate = Availability.StartDate,
+                IdAvailability = Availability.IdAvailability,
+                IdUser = Availability.IdUser,
+                IdParticipant = Availability.IdParticipant,
+                Location = Availability.Location,
+                Type = Availability.Type,
+                APIUser = new() { IDUser=user.IDUser,
+                    Name = user.Name,
+                    Surname = user.Surname,
+                    PhoneNumber = user.PhoneNumber,
+                    MailAddress = user.MailAddress
+                }
+            };
+            return apiAvailability;
+            //            return await _context.Availabilities.FindAsync(id);
         }
-        public async Task<List<Availability>> GetAvailabilitiesByDateAndTime(DateTime dateTime)
+        public async Task<List<APIAvailability>> GetAvailabilitiesByDateAndTime(DateTime dateTime)
         {
-            return await _context.Availabilities.Where(a=>a.StartDate.Equals(dateTime)).ToListAsync();
+            List<APIAvailability> availabilities = await _context.Availabilities.Where(a => a.StartDate.Equals(dateTime)).Select(a => new APIAvailability
+            {
+
+                StartDate = a.StartDate,
+                IdAvailability = a.IdAvailability,
+                IdUser = a.IdUser,
+                IdParticipant = a.IdParticipant,
+                Location = a.Location,
+                Type = a.Type,
+                //APIUser = null //await _context.Users.FindAsync(a.IdUser)
+
+            }).ToListAsync();
+
+            foreach (APIAvailability a in availabilities)
+            {
+                User user = await _context.Users.FindAsync(a.IdUser);
+                a.APIUser = new()
+                {
+                    IDUser = user.IDUser,
+                    Name = user.Name,
+                    Surname = user.Surname,
+                    PhoneNumber = user.PhoneNumber,
+                    MailAddress = user.MailAddress
+                };
+            }
+            return availabilities;
+            //return await _context.Availabilities.Where(a=>a.StartDate.Equals(dateTime)).ToListAsync();
         }
 
-        public async Task<List<Availability>> GetAvailabilitiesByType(int type)
+        public async Task<List<APIAvailability>> GetAvailabilitiesByType(int type)
         {
-            
-            return await _context.Availabilities.Where(a=>(int)a.Type==type).ToListAsync();
+            List<APIAvailability> availabilities = await _context.Availabilities.Where(a => (int)a.Type==type).Select(a => new APIAvailability
+            {
+
+                StartDate = a.StartDate,
+                IdAvailability = a.IdAvailability,
+                IdUser = a.IdUser,
+                IdParticipant = a.IdParticipant,
+                Location = a.Location,
+                Type = a.Type,
+                //APIUser = null //await _context.Users.FindAsync(a.IdUser)
+
+            }).ToListAsync();
+
+            foreach (APIAvailability a in availabilities)
+            {
+                User user = await _context.Users.FindAsync(a.IdUser);
+                a.APIUser = new()
+                {
+                    IDUser = user.IDUser,
+                    Name = user.Name,
+                    Surname = user.Surname,
+                    PhoneNumber = user.PhoneNumber,
+                    MailAddress = user.MailAddress
+                };
+            }
+            return availabilities;
+            //return await _context.Availabilities.Where(a=>(int)a.Type==type).ToListAsync();
 
         }
         public async Task<int> AddAvailability(CreateAvailability createAvailability)
@@ -49,7 +146,7 @@ namespace IOC.Services
                 throw new UserNotFoundException();
             }
 
-            Availability availability = new Availability
+            Availability availability = new()
             {
                 IdUser = createAvailability.IdUser,
                 StartDate = createAvailability.StartDate,
@@ -94,10 +191,35 @@ namespace IOC.Services
             return true;
         }
 
-        public async Task<List<Availability>> GetAllAvailabilitiesByUser(int idUser)
+        public async Task<List<APIAvailability>> GetAllAvailabilitiesByUser(int idUser)
         {
+            List<APIAvailability> availabilities = await _context.Availabilities.Where(a => a.IdUser==idUser).Select(a => new APIAvailability
+            {
 
-            return await _context.Availabilities.Where(a => a.IdUser == idUser).ToListAsync();
+                StartDate = a.StartDate,
+                IdAvailability = a.IdAvailability,
+                IdUser = a.IdUser,
+                IdParticipant = a.IdParticipant,
+                Location = a.Location,
+                Type = a.Type,
+                //APIUser = null //await _context.Users.FindAsync(a.IdUser)
+
+            }).ToListAsync();
+
+            foreach (APIAvailability a in availabilities)
+            {
+                User user = await _context.Users.FindAsync(a.IdUser);
+                a.APIUser = new()
+                {
+                    IDUser = user.IDUser,
+                    Name = user.Name,
+                    Surname = user.Surname,
+                    PhoneNumber = user.PhoneNumber,
+                    MailAddress = user.MailAddress
+                };
+            }
+            return availabilities;
+            //return await _context.Availabilities.Where(a => a.IdUser == idUser).ToListAsync();
 
         }
         public async Task<Availability> EditAvailability(Availability a)

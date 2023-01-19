@@ -1,9 +1,15 @@
 export interface GETavailabilities{
     idAvailability: number,
-    id: number,
+    idUser: number,
     idParticipant: number,
     location: string;
     type: number;
     startDate: string;
-    user: string;
+    apiUser: {
+        idUser: number,
+        name: string,
+        surname: string,
+        phoneNumber: string,
+        mailAddress: string
+    }
 }

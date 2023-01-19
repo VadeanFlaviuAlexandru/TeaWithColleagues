@@ -8,20 +8,18 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
+  name = new FormControl('');
+  surname = new FormControl('');
+  mailAddress = new FormControl('');
+  password = new FormControl('');
+  phoneNumber = new FormControl('');
 
-  name= new FormControl('');
-  surname= new FormControl('');
-  mailAddress=new FormControl('');
-  password=new FormControl('');
-  phoneNumber=new FormControl('');
-  
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   SignUpForm = new FormGroup({
     name: new FormControl(),
@@ -29,7 +27,7 @@ export class RegisterComponent implements OnInit {
     mailAddress: new FormControl(),
     password: new FormControl(),
     phoneNumber: new FormControl(),
-  })
+  });
 
   SignUpUser() {
     let UserR: UserR = {
@@ -38,21 +36,24 @@ export class RegisterComponent implements OnInit {
       mailAddress: this.SignUpForm.get('mailAddress')?.value,
       password: this.SignUpForm.get('password')?.value,
       phoneNumber: this.SignUpForm.get('phoneNumber')?.value,
-    }
-    console.log(UserR)
+    };
+    console.log(UserR);
     this.addUserL(UserR).subscribe((response) => {
       console.log(response);
-      if(response.statusText == "OK")
-            this.router.navigate(['']);
-      });
-  }
-  addUserL(UserR: any) {
-    return this.http.post(`${environment.BaseUrl}/Register/sign-up-user`, UserR, {
-      observe: 'response',
-      responseType: 'text',
+      if (response.statusText == 'OK') this.router.navigate(['']);
     });
   }
-  GoBack(){
+  addUserL(UserR: any) {
+    return this.http.post(
+      `${environment.BaseUrl}/Register/sign-up-user`,
+      UserR,
+      {
+        observe: 'response',
+        responseType: 'text',
+      }
+    );
+  }
+  GoBack() {
     this.router.navigate(['']);
   }
 }

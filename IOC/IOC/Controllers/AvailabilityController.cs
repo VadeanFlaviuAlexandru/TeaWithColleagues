@@ -23,44 +23,47 @@ namespace IOC.Controllers
         }
 
         [HttpGet("get-all-availabilities")]
-        public async Task<List<Availability>> GetAllAvailabilities()
+        public async Task<List<APIAvailability>> GetAllAvailabilities()
         {
             return  await _availabilityService.GetAllAvailabilities();
         }
 
 
         [HttpGet("get-availabilities-by-id")]
-        public async Task<ActionResult<Availability>> GetAvailability(int id)
+        public async Task<ActionResult<APIAvailability>> GetAvailability(int id)
         {
-            Availability availibility = await _availabilityService.GetAvailabilityById(id);
+            APIAvailability availibility = await _availabilityService.GetAvailabilityById(id);
             return availibility is not null ? availibility : NotFound(); 
         }
 
         [HttpGet("get-all-availabilities-by-user")]
-        public async Task<ActionResult<List<Availability>>> GetAllAvailabilitiesByUser(int idUser)
+        public async Task<ActionResult<List<APIAvailability>>> GetAllAvailabilitiesByUser(int idUser)
         {
             return await _availabilityService.GetAllAvailabilitiesByUser(idUser);
         }
+        
         [HttpGet("get-availabilities-by-date-and-time")]
-        public async Task<List<Availability>> GetAvailabilitiesByDateAndTime(DateTime dateTime)
+        public async Task<List< APIAvailability>> GetAvailabilitiesByDateAndTime(DateTime dateTime)
         {
             return await _availabilityService.GetAvailabilitiesByDateAndTime(dateTime);
         }
 
         [HttpGet("get-availabilities-by-type")]
-        public async Task<List<Availability>> GetAvailabilitiesByType(int type)
+        public async Task<List<APIAvailability>> GetAvailabilitiesByType(int type)
         {
             return await _availabilityService.GetAvailabilitiesByType(type);
         }
         [HttpPut("edit-availability")]
         public async Task<bool> EditAvailability([FromBody] AvailabilityEditRequest availabilityDto)
         {
-            Availability a = new Availability();
-            a.IdAvailability= availabilityDto.IdAvailability;
-            a.IdParticipant = availabilityDto.IdParticipant;
-            a.Location = availabilityDto.Location;
-            a.StartDate = availabilityDto.StartDate;
-            a.IdUser = availabilityDto.IdUser;
+            Availability a = new Availability
+            {
+                IdAvailability = availabilityDto.IdAvailability,
+                IdParticipant = availabilityDto.IdParticipant,
+                Location = availabilityDto.Location,
+                StartDate = availabilityDto.StartDate,
+                IdUser = availabilityDto.IdUser
+            };
 
 
 
@@ -87,18 +90,15 @@ namespace IOC.Controllers
         [HttpPost("users/{userId}/TeaTime")]
         public async Task<IActionResult> AddTeaTime([FromBody][Required] CreateTeaTimeRequest createTeaTimeRequest, [FromRoute][Required] int userId)
         {
-            // CreateAvailability createAvaiability = new()
-            // {
-            //     IdUser = userId,
-            //     StartDate = createTeaTimeRequest.StartDate
-            // };
-            CreateTeaTime createteatime = new(){
-                                IdUser = userId,
+            CreateTeaTime createTeaTime = new()
+            {
+                IdUser = userId,
                 StartDate = createTeaTimeRequest.StartDate,
                 Location = createTeaTimeRequest.Location,
-                IdParticipant=createTeaTimeRequest.IdParticipant,
+                IdParticipant = createTeaTimeRequest.IdParticipant
+
             };
-            return new ObjectResult(await _availabilityService.AddTeaTime(createteatime)) { StatusCode = StatusCodes.Status201Created };
+            return new ObjectResult(await _availabilityService.AddTeaTime(createTeaTime)) { StatusCode = StatusCodes.Status201Created };
         }
 
         [HttpDelete("availability/{id}")]
