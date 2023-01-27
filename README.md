@@ -12,7 +12,7 @@
 
 ## Key Features
 
-(Demo not available because of backend is not hosted separately.) 
+(Demo not available because the backend is not hosted separately.) 
 * Made with Angular.
 * Responsive layout.
 * Implemented <a href="https://fullcalendar.io/" target="_blank"> FullCalendar </a>, a JavaScript Calendar,
