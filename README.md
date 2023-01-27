@@ -17,7 +17,7 @@
 * Responsive layout.
 * Implemented <a href="https://fullcalendar.io/" target="_blank"> FullCalendar </a>, a JavaScript Calendar,
 allowing the possibility to add/delete/reschedule events in a friendly and responsive way.
-* More features to be implemented
+* More features and QoL updates to be implemented
 
 ## Screenshots
 
