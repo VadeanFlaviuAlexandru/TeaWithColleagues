@@ -4,7 +4,7 @@
 </h1>
 
 <h4 align="center">A Angular Group Project for The Course: Human-Computer Interaction.</h4>
-<h5 align="center">The requirment for this project was building an application that allow professors to organize tea meetings to get to know each other. Although this project was graded, it is not done. I will work on it when I have the occasion. </h5>
+<h5 align="center"> ⚠️ The requirment for this project was building an application that allow professors to organize tea meetings to get to know each other. Although this project was graded, it is not done. I will work on it when I have the occasion. ⚠️</h5>
 <p align="center">
   <a href="#key-features">Key Features</a> •
   <a href="#screenshots">Screenshots</a> •
